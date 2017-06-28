@@ -1,0 +1,25 @@
+﻿@using Capstone.Web.Models;
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/Content/Style/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Style/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Style/Site.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <header class="container"><img class="banner-image" src="@Url.Content("~/Content/logo.png")" /> </header>
+    <nav class="navbar-collapse collapse container">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("Survey", "Survey", "Survey")</li>
+        </ul>
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
