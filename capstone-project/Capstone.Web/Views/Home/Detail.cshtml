@@ -1,8 +1,57 @@
 ﻿@using Capstone.Web.Models;
-@model Park
+@model ParkWeatherViewModel
 
 @{
+    ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
+<h3>@Model.Park.ParkName - @Model.Park.State</h3>
+<div>
+    <p>@Model.Park.InspirationalQuote</p>
+    <small class="text-muted">@Model.Park.InspirationalQuoteSource</small>
+</div>
+<img src="@Url.Content("~/Content/parks/" + Model.Park.ParkCode + ".jpg")" />
+
+<div class="container" id="park-detail">
+    <table class="table">
+        <tr>
+            <td>Acreage</td>
+            <td>@string.Format("{0:n0}", Model.Park.Acreage)</td>
+        </tr>
+        <tr>
+            <td>Annual Visitor Count</td>
+            <td>@string.Format("{0:n0}", Model.Park.AnnualVisitorCount)</td>
+        </tr>
+        <tr>
+            <td>Climate</td>
+            <td>@Model.Park.Climate</td>
+        </tr>
+        <tr>
+            <td>Elevation</td>
+            <td>@string.Format("{0:n0}", Model.Park.ElevationInFeet) (ft)</td>
+        </tr>
+        <tr>
+            <td>Entry Fee</td>
+            <td>$@Model.Park.EntryFee</td>
+        </tr>
+        <tr>
+            <td>Miles of Hiking Trail</td>
+            <td>@Model.Park.MilesOfTrail</td>
+        </tr>
+        <tr>
+            <td>Number of Animal Species</td>
+            <td>@Model.Park.NumberOfAnimalSpecies</td>
+        </tr>
+        <tr>
+            <td>Number of Campsites</td>
+            <td>@Model.Park.NumberOfCampsites</td>
+        </tr>
+        <tr>
+            <td>Year Founded</td>
+            <td>@Model.Park.YearFounded</td>
+        </tr>
+    </table>
+    <p>@Model.Park.ParkDescription</p>
+</div>

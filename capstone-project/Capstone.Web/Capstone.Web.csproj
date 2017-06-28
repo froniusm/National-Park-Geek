@@ -141,11 +141,15 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SurveyController.cs" />
     <Compile Include="DAL\IParkDAL.cs" />
+    <Compile Include="DAL\IWeatherDAL.cs" />
     <Compile Include="DAL\ParkSqlDAL.cs" />
+    <Compile Include="DAL\WeatherSqlDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Park.cs" />
+    <Compile Include="Models\ParkWeatherViewModel.cs" />
+    <Compile Include="Models\Weather.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

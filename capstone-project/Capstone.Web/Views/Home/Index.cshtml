@@ -11,16 +11,19 @@
 <table>
     @foreach (Park p in Model)
     {
-    <tr>
-        @Html.ActionLink(p.ParkName, "Detail", "Home")
-        <td>
-            <img src="@Url.Content("~/Content/parks/" + p.ParkCode + ".jpg")"/>
-        </td>
-        <td>
-            <h4>@p.ParkName</h4>
-            <p>@p.State</p>
-            <p>@p.ParkDescription</p>
-        </td>
-    </tr>
+        <tr>
+            <td>
+                <a href="@Url.Action("Detail", "Home", new { parkCode = p.ParkCode })">
+                    <img src="@Url.Content("~/Content/parks/" + p.ParkCode + ".jpg")" />
+                </a>
+            </td>
+            <td>
+                <a href="@Url.Action("Detail", "Home", new { parkCode = p.ParkCode })">
+                    <h4>@p.ParkName</h4>
+                    <p>@p.State</p>
+                    <p>@p.ParkDescription</p>
+                </a>
+            </td>
+        </tr>
     }
 </table>

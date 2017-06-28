@@ -11,10 +11,12 @@ namespace Capstone.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IParkDAL parkDAL;
+        private readonly IWeatherDAL weatherDAL;
 
-        public HomeController(IParkDAL parkDAL)
+        public HomeController(IParkDAL parkDAL, IWeatherDAL weatherDAL)
         {
             this.parkDAL = parkDAL;
+            this.weatherDAL = weatherDAL;
         }
 
         // GET: Home
@@ -28,7 +30,12 @@ namespace Capstone.Web.Controllers
         public ActionResult Detail(string parkCode)
         {
             var park = parkDAL.GetPark(parkCode);
-            return View("Detail", park);
+            ParkWeatherViewModel pw = new ParkWeatherViewModel();
+
+            pw.Park = park;
+            pw.WeatherForecast = weatherDAL.GetWeatherForPark(parkCode);
+            
+            return View("Detail", pw);
         }
     }
 }
