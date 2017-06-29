@@ -12,6 +12,7 @@ namespace Capstone.Web.Controllers
     {
         private readonly IParkDAL parkDAL;
         private readonly IWeatherDAL weatherDAL;
+        private string TemperatureGuage;
 
         public HomeController(IParkDAL parkDAL, IWeatherDAL weatherDAL)
         {
@@ -34,7 +35,41 @@ namespace Capstone.Web.Controllers
 
             pw.Park = park;
             pw.WeatherForecast = weatherDAL.GetWeatherForPark(parkCode);
+
+            if(Session[TemperatureGuage] == null)
+            {
+                Session[TemperatureGuage] = "F"; //default temperatures to Fahrenheit
+                pw.TempInFahrenheitOrCelsius = (string)Session[TemperatureGuage];
+            }
+
+            if(pw.TempInFahrenheitOrCelsius == "C")
+            {
+                Session[TemperatureGuage] = "C";
+            }
             
+            return View("Detail", pw);
+        }
+
+        [HttpPost]
+        public ActionResult Detail(string parkCode, string tempGuage)
+        {
+            var park = parkDAL.GetPark(parkCode);
+            ParkWeatherViewModel pw = new ParkWeatherViewModel();
+
+            pw.Park = park;
+            pw.WeatherForecast = weatherDAL.GetWeatherForPark(parkCode);
+
+            if (pw.TempInFahrenheitOrCelsius == "F")
+            {
+                Session[TemperatureGuage] = "F"; //default temperatures to Fahrenheit
+                pw.TempInFahrenheitOrCelsius = (string)Session[TemperatureGuage];
+            }
+
+            if (pw.TempInFahrenheitOrCelsius == "C")
+            {
+                Session[TemperatureGuage] = "C";
+            }
+
             return View("Detail", pw);
         }
     }

@@ -12,12 +12,12 @@
         @foreach (Park p in Model)
         {
             <tr>
-                <td class="col-md-6">
+                <td class="col-xs-6">
                     <a href="@Url.Action("Detail", "Home", new { parkCode = p.ParkCode })">
                         <img class="img-responsive" src="@Url.Content("~/Content/parks/" + p.ParkCode + ".jpg")" />
                     </a>
                 </td>
-                <td class="col-md-6">
+                <td class="col-xs-6">
                     <a href="@Url.Action("Detail", "Home", new { parkCode = p.ParkCode })">
                         <h4>@p.ParkName</h4>
                         <p>@p.State</p>

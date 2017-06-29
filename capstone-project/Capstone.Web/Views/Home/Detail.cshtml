@@ -16,8 +16,8 @@
     
 
 <div  id="park-detail">
-    <img class="img-responsive col-md-6 details-page-img" src="@Url.Content("~/Content/parks/" + Model.Park.ParkCode + ".jpg")" />
-    <table class="table table-sm col-md-4 park-table">
+    <img class="img-responsive col-xs-6 details-page-img" src="@Url.Content("~/Content/parks/" + Model.Park.ParkCode + ".jpg")" />
+    <table class="table table-sm col-xs-4 park-table">
         <tr>
             <td>Acreage</td>
             <td>@string.Format("{0:n0}", Model.Park.Acreage)</td>
@@ -66,20 +66,31 @@
                 <div class="today-weather">
                     <h5>Today</h5>
                     <img class="img-responsive" src="@Url.Content("~/Content/weather/" + Model.WeatherForecast[0].Forecast + ".png")" />
-                    <p class="col-xs-2">High @Model.WeatherForecast[0].High</p>
-                    <p class="col-xs-2">Low @Model.WeatherForecast[0].Low</p>
+                    <p class="col-xs-2">High @((Model.TempInFahrenheitOrCelsius == "F") ? Model.WeatherForecast[0].High : Model.TempInCelsius(Model.WeatherForecast[0].High))  </p>
+                    <p class="col-xs-2">Low @((Model.TempInFahrenheitOrCelsius == "F") ? Model.WeatherForecast[0].Low : Model.TempInCelsius(Model.WeatherForecast[0].Low))</p>
+                    <small>Advisory: @Model.GetAdvisory(Model.WeatherForecast[0])</small>
                 </div>
             </td>
             @for(int i = 1; i < Model.WeatherForecast.Count; i++)
             {
                 <td>
-                    <div class="future-weather">
+                    <div class="future-weather" >
                         <img class="img-responsive" src="@Url.Content("~/Content/weather/" + Model.WeatherForecast[i].Forecast + ".png")" />
                         <p class="col-xs-2">High @Model.WeatherForecast[i].High</p>
                         <p class="col-xs-2">Low @Model.WeatherForecast[i].Low</p>
+                        <span class="text-content"><span>Advisory: @Model.GetAdvisory(Model.WeatherForecast[i])</span></span>
                     </div>
                 </td>
             }
         </tr>
     </table>
+    <div>
+        @using (Html.BeginForm("Detail", "Home", FormMethod.Post))
+        {
+            @Html.RadioButtonFor(p => p.TempInFahrenheitOrCelsius, "F")
+            @Html.RadioButtonFor(p => p.TempInFahrenheitOrCelsius, "C")
+            @Html.HiddenFor(p => p.Park.ParkCode, new { parkCode = Model.Park.ParkCode })
+            <button class="btn">Change temperature</button>
+        }
+    </div>
 </div>
