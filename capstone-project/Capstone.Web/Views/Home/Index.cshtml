@@ -7,23 +7,24 @@
 }
 
 <h2>National Parks</h2>
-
-<table>
-    @foreach (Park p in Model)
-    {
-        <tr>
-            <td>
-                <a href="@Url.Action("Detail", "Home", new { parkCode = p.ParkCode })">
-                    <img src="@Url.Content("~/Content/parks/" + p.ParkCode + ".jpg")" />
-                </a>
-            </td>
-            <td>
-                <a href="@Url.Action("Detail", "Home", new { parkCode = p.ParkCode })">
-                    <h4>@p.ParkName</h4>
-                    <p>@p.State</p>
-                    <p>@p.ParkDescription</p>
-                </a>
-            </td>
-        </tr>
-    }
-</table>
+<div class="container">
+    <table class="table table-responsive">
+        @foreach (Park p in Model)
+        {
+            <tr>
+                <td class="col-md-6">
+                    <a href="@Url.Action("Detail", "Home", new { parkCode = p.ParkCode })">
+                        <img class="img-responsive" src="@Url.Content("~/Content/parks/" + p.ParkCode + ".jpg")" />
+                    </a>
+                </td>
+                <td class="col-md-6">
+                    <a href="@Url.Action("Detail", "Home", new { parkCode = p.ParkCode })">
+                        <h4>@p.ParkName</h4>
+                        <p>@p.State</p>
+                        <p>@p.ParkDescription</p>
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

@@ -29,6 +29,16 @@ namespace Capstone.Web.DAL
                     conn.Open();
 
                     weather = conn.Query<Weather>(SQL_GetWeatherForPark, new { parkCode = parkCode }).ToList();
+
+                    // format weather.Forecast to compatible name of /content/weather/*.png images
+                    foreach (Weather w in weather)
+                    {
+                        if(w.Forecast == "partly cloudy")
+                        {
+                            w.Forecast = "partlyCloudy";
+                        }
+                    }
+
                     return weather;
 
                 }

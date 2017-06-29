@@ -12,10 +12,12 @@
     <p>@Model.Park.InspirationalQuote</p>
     <small class="text-muted">@Model.Park.InspirationalQuoteSource</small>
 </div>
-<img src="@Url.Content("~/Content/parks/" + Model.Park.ParkCode + ".jpg")" />
 
-<div class="container" id="park-detail">
-    <table class="table">
+    
+
+<div  id="park-detail">
+    <img class="img-responsive col-md-6 details-page-img" src="@Url.Content("~/Content/parks/" + Model.Park.ParkCode + ".jpg")" />
+    <table class="table table-sm col-md-4 park-table">
         <tr>
             <td>Acreage</td>
             <td>@string.Format("{0:n0}", Model.Park.Acreage)</td>
@@ -53,5 +55,31 @@
             <td>@Model.Park.YearFounded</td>
         </tr>
     </table>
-    <p>@Model.Park.ParkDescription</p>
+   
+</div>
+<p class="col-md-6">@Model.Park.ParkDescription</p>
+
+<div class="weather-report">
+    <table class="table table-responsive">
+        <tr>
+            <td>
+                <div class="today-weather">
+                    <h5>Today</h5>
+                    <img class="img-responsive" src="@Url.Content("~/Content/weather/" + Model.WeatherForecast[0].Forecast + ".png")" />
+                    <p class="col-xs-2">High @Model.WeatherForecast[0].High</p>
+                    <p class="col-xs-2">Low @Model.WeatherForecast[0].Low</p>
+                </div>
+            </td>
+            @for(int i = 1; i < Model.WeatherForecast.Count; i++)
+            {
+                <td>
+                    <div class="future-weather">
+                        <img class="img-responsive" src="@Url.Content("~/Content/weather/" + Model.WeatherForecast[i].Forecast + ".png")" />
+                        <p class="col-xs-2">High @Model.WeatherForecast[i].High</p>
+                        <p class="col-xs-2">Low @Model.WeatherForecast[i].Low</p>
+                    </div>
+                </td>
+            }
+        </tr>
+    </table>
 </div>

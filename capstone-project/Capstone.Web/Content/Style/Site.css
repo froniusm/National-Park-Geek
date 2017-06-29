@@ -5,6 +5,28 @@
     width: 40%;
 }
 #park-detail {
-    width: 40%;
-    float: left;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+
+.park-table {
+    display: inline;
+    
+    
+}
+
+.details-page-img {
+    
+}
+
+.weather-report {
+    display: inline-flex;
+    align-items: center;
+}
+
+.future-weather {
+    display: inline-block;
+    max-width: 80%;
+    vertical-align: central;
 }
