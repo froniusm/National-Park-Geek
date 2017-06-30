@@ -1,7 +1,4 @@
-﻿body {
-}
-
-.banner-image {
+﻿.banner-image {
     width: 40%;
 }
 #park-detail {
@@ -10,14 +7,22 @@
     justify-content: center;
 }
 
-.park-table {
-    display: inline;
-    
-    
+body nav {
+    background-color: #5E3B04;
+    color: #4FD43E;
 }
 
-.details-page-img {
-    
+nav ul li a {
+    color: #4FD43E;
+    margin-left: 20px;
+}
+
+nav ul:nth-child(1) {
+    margin-left: 30px;
+}
+
+.park-table {
+    display: inline;
 }
 
 .weather-report {
@@ -39,9 +44,9 @@ span.text-content {
     display: table;
     height: 150px;
     left: 0;
-    position: absolute;
     top: 0;
     width: 150px;
+    border-radius: 20%;
     opacity: 0;
     -webkit-transition: opacity 500ms;
     -moz-transition: opacity 500ms;
@@ -66,4 +71,59 @@ div.future-weather:hover span.text-content {
 
 * {
     font-family: Roboto, sans-serif;
+}
+
+
+
+
+
+.temperature {
+    text-align: center;
+}
+
+td a:hover {
+    text-decoration: none;
+}
+
+td a div {
+    padding: 10%;
+}
+
+section h2 {
+    margin-left: 10px;
+}
+
+footer {
+    text-align: center;
+    color: #5E3B04;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.quote {
+    margin: 1% 5%;
+}
+
+small {
+    margin-left: 20px;
+}
+
+.results {
+    font-size: 1.4em;
+    margin-top: 15%;
+    padding: 5%;
+}
+
+.results-row {
+    padding-top: 15%;
+    text-align: center;
+}
+
+tr th {
+    text-align:center;
+}
+
+.favorite-parks {
+    width: 70%;
+    border: 1px solid #5E3B04;
 }

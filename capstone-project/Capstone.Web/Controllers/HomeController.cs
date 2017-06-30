@@ -38,14 +38,13 @@ namespace Capstone.Web.Controllers
             if(Session["IsFahrenheit"] == null)
             {
                 Session["IsFahrenheit"] = true; //default temperatures to Fahrenheit
+                pw.TempIsFahrenheit = true;
             }
-
-            if(pw.TempIsFahrenheit)
+            else if(pw.TempIsFahrenheit)
             {
                 Session["IsFahrenheit"] = true;
             }
-
-            if(pw.TempIsFahrenheit == false)
+            else if(pw.TempIsFahrenheit == false)
             {
                 Session["IsFahrenheit"] = false;
             }
@@ -63,8 +62,7 @@ namespace Capstone.Web.Controllers
             {
                 Session["IsFahrenheit"] = true; //default temperatures to Fahrenheit
             }
-
-            if (!pw.TempIsFahrenheit)
+            else if (!pw.TempIsFahrenheit)
             {
                 Session["IsFahrenheit"] = false;
             }

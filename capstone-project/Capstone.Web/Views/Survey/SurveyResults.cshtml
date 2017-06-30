@@ -8,7 +8,15 @@
 
 <h2>Favorite Parks</h2>
 
-<table class="table table-responsive">
+
+@if (TempData["SurveySuccess"] != null)
+{
+    <p class="alert alert-success alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> Your survey has successfully been saved.</p>
+}
+
+<table class="table table-striped table-responsive table-bordered favorite-parks">
     <tr>
         <th></th>
         <th>Park</th>
@@ -16,12 +24,17 @@
     </tr>
     @foreach (KeyValuePair<string, int> kvp in Model.SurveyResults)
     {
-    <tr>
+    <tr class="results-row">
         <td class="col-xs-4">
-            <img class="img-responsive"src="@Url.Content("~/Content/parks/" + kvp.Key + ".jpg")" />
+            <img class="img-responsive"src="@Url.Content("~/Content/parks/" + kvp.Key + ".jpg")" 
+                 alt="@(Model.Parks.Find(p => p.ParkCode == kvp.Key).ParkName)"  />
         </td>
-        <td class="col-xs-2">@(Model.Parks.Find(p => p.ParkCode == kvp.Key).ParkName)</td>
-        <td class="col-xs-2">@kvp.Value</td>
+        <td class="col-xs-2">
+            <p class="results">@(Model.Parks.Find(p => p.ParkCode == kvp.Key).ParkName)</p>
+        </td>
+        <td class="col-xs-2">
+            <p class="results ">@kvp.Value</p>
+        </td>
     </tr>
     }
 </table>

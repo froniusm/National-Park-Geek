@@ -11,16 +11,19 @@
     @foreach (Park p in Model)
     {
         <tr>
-            <td class="col-xs-6">
+            <td class="col-xs-6 col-lg-4 col-lg-offset-2">
                 <a href="@Url.Action("Detail", "Home", new { parkCode = p.ParkCode })">
-                    <img class="img-responsive" src="@Url.Content("~/Content/parks/" + p.ParkCode + ".jpg")" />
+                    <img class="img-responsive" src="@Url.Content("~/Content/parks/" + p.ParkCode + ".jpg")" 
+                         alt="@p.ParkName"/>
                 </a>
             </td>
-            <td class="col-xs-6">
+             <td class="col-xs-6 col-lg-4 col-lg-offset-2">
                 <a href="@Url.Action("Detail", "Home", new { parkCode = p.ParkCode })">
-                    <h4>@p.ParkName</h4>
-                    <p>@p.State</p>
-                    <p>@p.ParkDescription</p>
+                    <div>
+                        <h4>@p.ParkName</h4>
+                        <p>@p.State</p>
+                        <p>@p.ParkDescription</p>
+                    </div>
                 </a>
             </td>
         </tr>

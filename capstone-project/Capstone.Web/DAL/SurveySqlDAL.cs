@@ -47,14 +47,14 @@ namespace Capstone.Web.DAL
                 {
                     conn.Open();
 
-                    survey.SurveyId = conn.Query<int>(SQL_SaveSurvey, new
+                    conn.Query(SQL_SaveSurvey, new
                     {
                         parkCode = survey.ParkCode,
                         emailAddress = survey.EmailAddress,
                         state = survey.State,
                         activityLevel = survey.ActivityLevel
                        
-                    }).First();
+                    });
                 }
             }
             catch (Exception e)

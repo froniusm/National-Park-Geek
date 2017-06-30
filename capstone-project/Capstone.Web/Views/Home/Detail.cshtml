@@ -7,16 +7,17 @@
 }
 
 
-<h3>@Model.Park.ParkName - @Model.Park.State</h3>
-<div>
+<h2>@Model.Park.ParkName - @Model.Park.State</h2>
+<div class="quote">
     <p>@Model.Park.InspirationalQuote</p>
-    <small class="text-muted">@Model.Park.InspirationalQuoteSource</small>
+    <small class="text-muted">--@Model.Park.InspirationalQuoteSource</small>
 </div>
 
     
 
 <div  id="park-detail">
-    <img class="img-responsive col-xs-6 details-page-img" src="@Url.Content("~/Content/parks/" + Model.Park.ParkCode + ".jpg")" />
+    <img class="img-responsive col-xs-6 details-page-img" src="@Url.Content("~/Content/parks/" + Model.Park.ParkCode + ".jpg")" 
+         alt="@Model.Park.ParkName"/>
     <table class="table table-sm col-xs-4 park-table">
         <tr>
             <td>Acreage</td>
@@ -59,15 +60,27 @@
 </div>
 <br />
 <p class="col-md-6">@Model.Park.ParkDescription</p>
+
 <div class="weather-report">
+   
     <table class="table table-responsive">
         <tr>
             <td>
                 <div class="today-weather">
                     <h5>Today</h5>
-                    <img class="img-responsive" src="@Url.Content("~/Content/weather/" + Model.WeatherForecast[0].Forecast + ".png")" />
-                    <p class="col-xs-2">High @(((bool)Session["IsFahrenheit"]) ? Model.WeatherForecast[0].High : Model.TempInCelsius(Model.WeatherForecast[0].High))  </p>
-                    <p class="col-xs-2">Low @(((bool)Session["IsFahrenheit"]) ? Model.WeatherForecast[0].Low : Model.TempInCelsius(Model.WeatherForecast[0].Low))</p>
+                    <img class="img-responsive" src="@Url.Content("~/Content/weather/" + Model.WeatherForecast[0].Forecast + ".png")" 
+                         alt="@Model.WeatherForecast[0].Forecast"/>
+                    @if (Model.TempIsFahrenheit)
+                    {
+                        <p class="col-xs-2">High @Model.WeatherForecast[0].High &#8457;</p>
+                        <p class="col-xs-2">Low @Model.WeatherForecast[0].Low &#8457;</p>
+
+                    }
+                    else
+                    {
+                        <p class="col-xs-2">High @Model.TempInCelsius(Model.WeatherForecast[0].High) &#8451;</p>
+                        <p class="col-xs-2">Low @Model.TempInCelsius(Model.WeatherForecast[0].Low) &#8451;</p>
+                    }
                     <small>Advisory: @Model.GetAdvisory(Model.WeatherForecast[0])</small>
                 </div>
             </td>
@@ -75,24 +88,38 @@
             {
                 <td>
                     <div class="future-weather" >
-                        <img class="img-responsive" src="@Url.Content("~/Content/weather/" + Model.WeatherForecast[i].Forecast + ".png")" />
-                        <p class="col-xs-2">High @Model.WeatherForecast[i].High</p>
-                        <p class="col-xs-2">Low @Model.WeatherForecast[i].Low</p>
+                        <img class="img-responsive" src="@Url.Content("~/Content/weather/" + Model.WeatherForecast[i].Forecast + ".png")" 
+                             alt="@Model.WeatherForecast[i].Forecast"/>
+                        @if (Model.TempIsFahrenheit)
+                        {
+                            <p class="temperature">High @Model.WeatherForecast[i].High &#8457;</p>
+                            <p class="temperature">Low @Model.WeatherForecast[i].Low &#8457;</p>
+
+                        }
+                        else
+                        {
+                            <p class="temperature">High @Model.TempInCelsius(Model.WeatherForecast[i].High) &#8451;</p>
+                            <p class="temperature">Low @Model.TempInCelsius(Model.WeatherForecast[i].Low) &#8451;</p>
+                        }
+
                         <span class="text-content"><span>Advisory: @Model.GetAdvisory(Model.WeatherForecast[i])</span></span>
                     </div>
                 </td>
             }
         </tr>
     </table>
-    <div>
-        @using (Html.BeginForm("Detail", "Home", FormMethod.Post))
-        {
-            @Html.Label("Fahrenheit")
-            @Html.RadioButtonFor(p => p.TempIsFahrenheit, "true")
-            @Html.Label("Celsius")
-            @Html.RadioButtonFor(p => p.TempIsFahrenheit, "false")
-            @Html.Hidden("parkCode", @Model.Park.ParkCode)
-            <button class="btn">Change temperature</button>
-        }
-    </div>
+    
+</div>
+<div class="form-group choose-temp">
+    @using (Html.BeginForm("Detail", "Home", FormMethod.Post))
+    {
+        @Html.LabelFor(p => p.TempIsFahrenheit, "Fahrenheit")
+            @Html.RadioButtonFor(p => p.TempIsFahrenheit, "true", new { id = "fahrenheit" })
+        <br />
+        @Html.LabelFor(p => p.TempIsFahrenheit, "Celsius")
+            @Html.RadioButtonFor(p => p.TempIsFahrenheit, "false", new { id = "celsius" })
+        <br />
+        @Html.Hidden("parkCode", @Model.Park.ParkCode)
+        <button class="btn">Change temperature</button>
+    }
 </div>

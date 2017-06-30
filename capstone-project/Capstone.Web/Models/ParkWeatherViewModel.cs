@@ -44,7 +44,7 @@ namespace Capstone.Web.Models
             }
             else
             {
-                return "Great day for a hike!";
+                return "";
             }
         }
 
