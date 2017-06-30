@@ -11,7 +11,7 @@ namespace Capstone.Web.Models
     {
         public Park Park { get; set; }
         public List<Weather> WeatherForecast { get; set; }
-        public string TempInFahrenheitOrCelsius { get; set; }
+        public bool TempIsFahrenheit { get; set; }
 
         public string GetAdvisory(Weather w)
         {

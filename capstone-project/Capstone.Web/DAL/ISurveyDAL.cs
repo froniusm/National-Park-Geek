@@ -8,7 +8,7 @@ namespace Capstone.Web.DAL
 {
     public interface ISurveyDAL
     {
-        List<Survey> GetAllSurveys();
-        void SaveSurvey();
+        Dictionary<string, int> GetSurveyResults();
+        void SaveSurvey(Survey survey);
     }
 }

@@ -1,0 +1,27 @@
+﻿@using Capstone.Web.Models
+@model SurveyResultViewModel
+
+@{
+    ViewBag.Title = "Favorite Parks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Favorite Parks</h2>
+
+<table class="table table-responsive">
+    <tr>
+        <th></th>
+        <th>Park</th>
+        <th># of Surveys</th>
+    </tr>
+    @foreach (KeyValuePair<string, int> kvp in Model.SurveyResults)
+    {
+    <tr>
+        <td class="col-xs-4">
+            <img class="img-responsive"src="@Url.Content("~/Content/parks/" + kvp.Key + ".jpg")" />
+        </td>
+        <td class="col-xs-2">@(Model.Parks.Find(p => p.ParkCode == kvp.Key).ParkName)</td>
+        <td class="col-xs-2">@kvp.Value</td>
+    </tr>
+    }
+</table>

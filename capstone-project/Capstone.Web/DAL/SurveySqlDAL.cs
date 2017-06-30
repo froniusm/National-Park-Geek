@@ -11,7 +11,7 @@ namespace Capstone.Web.DAL
     public class SurveySqlDAL : ISurveyDAL
     {
         private readonly string connectionString;
-        private const string SQL_GetSurveys = "SELECT COUNT(*) as votes FROM survey_result GROUP BY parkCode, ORDER BY votes;";
+        private const string SQL_GetSurveys = "SELECT COUNT(*) as votes, parkCode FROM survey_result GROUP BY parkCode ORDER BY votes DESC, parkCode;";
         private const string SQL_SaveSurvey = "INSERT INTO survey_result VALUES (@parkCode, @emailAddress, @state, @activityLevel)";
 
         public SurveySqlDAL(string connectionString)
@@ -19,12 +19,7 @@ namespace Capstone.Web.DAL
             this.connectionString = connectionString;
         }
 
-        public List<Survey> GetAllSurveys()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveSurvey()
+        public Dictionary<string, int> GetSurveyResults()
         {
             try
             {
@@ -32,8 +27,39 @@ namespace Capstone.Web.DAL
                 {
                     conn.Open();
 
-
+                    Dictionary<string, int> output = conn.Query(SQL_GetSurveys).ToDictionary(
+                        row => (string)row.parkCode,
+                        row => (int)row.votes);
+                    return output;
                 }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        public void SaveSurvey(Survey survey)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    survey.SurveyId = conn.Query<int>(SQL_SaveSurvey, new
+                    {
+                        parkCode = survey.ParkCode,
+                        emailAddress = survey.EmailAddress,
+                        state = survey.State,
+                        activityLevel = survey.ActivityLevel
+                       
+                    }).First();
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
             }
         }
     }

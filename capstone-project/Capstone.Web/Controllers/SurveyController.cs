@@ -11,10 +11,12 @@ namespace Capstone.Web.Controllers
     public class SurveyController : Controller
     {
         private readonly ISurveyDAL surveyDAL;
+        private readonly IParkDAL parkDAL;
 
-        public SurveyController(ISurveyDAL surveyDAL)
+        public SurveyController(ISurveyDAL surveyDAL, IParkDAL parkDAL)
         {
             this.surveyDAL = surveyDAL;
+            this.parkDAL = parkDAL;
         }
 
         // GET: Survey/Survey (new Survey to submit)
@@ -37,6 +39,10 @@ namespace Capstone.Web.Controllers
                 return View("Survey", model);
             }
             //save Survey model to DB
+            surveyDAL.SaveSurvey(model);
+
+            // save in session that they successfully submitted a survey
+            TempData["SurveySuccess"] = "Success!  Your survey has been successfully submitted.";
 
             // redirect to SurveyResults page
             return RedirectToAction("SurveyResults", "Survey");
@@ -46,9 +52,14 @@ namespace Capstone.Web.Controllers
          public ActionResult SurveyResults()
          {
             // get all survey results from database
+            Dictionary<string, int> results = surveyDAL.GetSurveyResults();
 
-
-            return View("SurveyResults");
+            SurveyResultViewModel srvm = new SurveyResultViewModel()
+            {
+                SurveyResults = results,
+                Parks = parkDAL.GetAllParks(),
+            };
+            return View("SurveyResults", srvm);
          }
 
         List<SelectListItem> ParkCodes = new List<SelectListItem>()

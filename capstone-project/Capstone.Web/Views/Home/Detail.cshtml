@@ -57,8 +57,8 @@
     </table>
    
 </div>
+<br />
 <p class="col-md-6">@Model.Park.ParkDescription</p>
-
 <div class="weather-report">
     <table class="table table-responsive">
         <tr>
@@ -66,8 +66,8 @@
                 <div class="today-weather">
                     <h5>Today</h5>
                     <img class="img-responsive" src="@Url.Content("~/Content/weather/" + Model.WeatherForecast[0].Forecast + ".png")" />
-                    <p class="col-xs-2">High @((Model.TempInFahrenheitOrCelsius == "F") ? Model.WeatherForecast[0].High : Model.TempInCelsius(Model.WeatherForecast[0].High))  </p>
-                    <p class="col-xs-2">Low @((Model.TempInFahrenheitOrCelsius == "F") ? Model.WeatherForecast[0].Low : Model.TempInCelsius(Model.WeatherForecast[0].Low))</p>
+                    <p class="col-xs-2">High @(((bool)Session["IsFahrenheit"]) ? Model.WeatherForecast[0].High : Model.TempInCelsius(Model.WeatherForecast[0].High))  </p>
+                    <p class="col-xs-2">Low @(((bool)Session["IsFahrenheit"]) ? Model.WeatherForecast[0].Low : Model.TempInCelsius(Model.WeatherForecast[0].Low))</p>
                     <small>Advisory: @Model.GetAdvisory(Model.WeatherForecast[0])</small>
                 </div>
             </td>
@@ -87,9 +87,11 @@
     <div>
         @using (Html.BeginForm("Detail", "Home", FormMethod.Post))
         {
-            @Html.RadioButtonFor(p => p.TempInFahrenheitOrCelsius, "F")
-            @Html.RadioButtonFor(p => p.TempInFahrenheitOrCelsius, "C")
-            @Html.HiddenFor(p => p.Park.ParkCode, new { parkCode = Model.Park.ParkCode })
+            @Html.Label("Fahrenheit")
+            @Html.RadioButtonFor(p => p.TempIsFahrenheit, "true")
+            @Html.Label("Celsius")
+            @Html.RadioButtonFor(p => p.TempIsFahrenheit, "false")
+            @Html.Hidden("parkCode", @Model.Park.ParkCode)
             <button class="btn">Change temperature</button>
         }
     </div>

@@ -152,6 +152,7 @@
     <Compile Include="Models\Park.cs" />
     <Compile Include="Models\ParkWeatherViewModel.cs" />
     <Compile Include="Models\Survey.cs" />
+    <Compile Include="Models\SurveyResultViewModel.cs" />
     <Compile Include="Models\Weather.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -162,6 +163,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Survey\Survey.cshtml" />
+    <Content Include="Views\Survey\SurveyResults.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

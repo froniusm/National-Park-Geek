@@ -12,7 +12,6 @@ namespace Capstone.Web.Controllers
     {
         private readonly IParkDAL parkDAL;
         private readonly IWeatherDAL weatherDAL;
-        private string TemperatureGuage;
 
         public HomeController(IParkDAL parkDAL, IWeatherDAL weatherDAL)
         {
@@ -36,38 +35,38 @@ namespace Capstone.Web.Controllers
             pw.Park = park;
             pw.WeatherForecast = weatherDAL.GetWeatherForPark(parkCode);
 
-            if(Session[TemperatureGuage] == null)
+            if(Session["IsFahrenheit"] == null)
             {
-                Session[TemperatureGuage] = "F"; //default temperatures to Fahrenheit
-                pw.TempInFahrenheitOrCelsius = (string)Session[TemperatureGuage];
+                Session["IsFahrenheit"] = true; //default temperatures to Fahrenheit
             }
 
-            if(pw.TempInFahrenheitOrCelsius == "C")
+            if(pw.TempIsFahrenheit)
             {
-                Session[TemperatureGuage] = "C";
+                Session["IsFahrenheit"] = true;
+            }
+
+            if(pw.TempIsFahrenheit == false)
+            {
+                Session["IsFahrenheit"] = false;
             }
             
             return View("Detail", pw);
         }
 
         [HttpPost]
-        public ActionResult Detail(string parkCode, string tempGuage)
+        public ActionResult Detail(string parkCode, ParkWeatherViewModel pw)
         {
-            var park = parkDAL.GetPark(parkCode);
-            ParkWeatherViewModel pw = new ParkWeatherViewModel();
-
-            pw.Park = park;
+            pw.Park = parkDAL.GetPark(parkCode);
             pw.WeatherForecast = weatherDAL.GetWeatherForPark(parkCode);
 
-            if (pw.TempInFahrenheitOrCelsius == "F")
+            if (pw.TempIsFahrenheit)
             {
-                Session[TemperatureGuage] = "F"; //default temperatures to Fahrenheit
-                pw.TempInFahrenheitOrCelsius = (string)Session[TemperatureGuage];
+                Session["IsFahrenheit"] = true; //default temperatures to Fahrenheit
             }
 
-            if (pw.TempInFahrenheitOrCelsius == "C")
+            if (!pw.TempIsFahrenheit)
             {
-                Session[TemperatureGuage] = "C";
+                Session["IsFahrenheit"] = false;
             }
 
             return View("Detail", pw);
