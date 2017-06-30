@@ -26,7 +26,15 @@ namespace Capstone.Web.DAL
 
         public void SaveSurvey()
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+
+                }
+            }
         }
     }
 }
