@@ -41,7 +41,16 @@
         </tr>
         <tr>
             <td>Miles of Hiking Trail</td>
-            <td>@Model.Park.MilesOfTrail</td>
+            
+            @if (Model.Park.MilesOfTrail % 1 == 0)
+            {
+                <td>@Model.Park.MilesOfTrail mi</td>
+            }
+            else
+            {
+                <td>@Model.Park.MilesOfTrail.ToString("0.0") mi</td>
+            }
+
         </tr>
         <tr>
             <td>Number of Animal Species</td>
