@@ -127,3 +127,11 @@ tr th {
     width: 70%;
     border: 1px solid #5E3B04;
 }
+
+.choose-temp label {
+    margin-right: 2%;
+}
+
+#celsius {
+    margin-right: 3.6%;
+}

@@ -38,16 +38,10 @@ namespace Capstone.Web.Controllers
             if(Session["IsFahrenheit"] == null)
             {
                 Session["IsFahrenheit"] = true; //default temperatures to Fahrenheit
-                pw.TempIsFahrenheit = true;
             }
-            else if(pw.TempIsFahrenheit)
-            {
-                Session["IsFahrenheit"] = true;
-            }
-            else if(pw.TempIsFahrenheit == false)
-            {
-                Session["IsFahrenheit"] = false;
-            }
+
+            pw.TempIsFahrenheit = (bool)Session["IsFahrenheit"];
+            
             
             return View("Detail", pw);
         }
@@ -58,15 +52,8 @@ namespace Capstone.Web.Controllers
             pw.Park = parkDAL.GetPark(parkCode);
             pw.WeatherForecast = weatherDAL.GetWeatherForPark(parkCode);
 
-            if (pw.TempIsFahrenheit)
-            {
-                Session["IsFahrenheit"] = true; //default temperatures to Fahrenheit
-            }
-            else if (!pw.TempIsFahrenheit)
-            {
-                Session["IsFahrenheit"] = false;
-            }
-
+            Session["IsFahrenheit"] = pw.TempIsFahrenheit;
+            
             return View("Detail", pw);
         }
     }

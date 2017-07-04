@@ -70,7 +70,7 @@
                     <h5>Today</h5>
                     <img class="img-responsive" src="@Url.Content("~/Content/weather/" + Model.WeatherForecast[0].Forecast + ".png")" 
                          alt="@Model.WeatherForecast[0].Forecast"/>
-                    @if (Model.TempIsFahrenheit)
+                    @if ((bool)Session["IsFahrenheit"])
                     {
                         <p class="col-xs-2">High @Model.WeatherForecast[0].High &#8457;</p>
                         <p class="col-xs-2">Low @Model.WeatherForecast[0].Low &#8457;</p>
@@ -90,7 +90,7 @@
                     <div class="future-weather" >
                         <img class="img-responsive" src="@Url.Content("~/Content/weather/" + Model.WeatherForecast[i].Forecast + ".png")" 
                              alt="@Model.WeatherForecast[i].Forecast"/>
-                        @if (Model.TempIsFahrenheit)
+                        @if ((bool)Session["IsFahrenheit"])
                         {
                             <p class="temperature">High @Model.WeatherForecast[i].High &#8457;</p>
                             <p class="temperature">Low @Model.WeatherForecast[i].Low &#8457;</p>
@@ -114,10 +114,10 @@
     @using (Html.BeginForm("Detail", "Home", FormMethod.Post))
     {
         @Html.LabelFor(p => p.TempIsFahrenheit, "Fahrenheit")
-            @Html.RadioButtonFor(p => p.TempIsFahrenheit, "true", new { id = "fahrenheit" })
+            @Html.RadioButtonFor(p => p.TempIsFahrenheit, "true")
         <br />
-        @Html.LabelFor(p => p.TempIsFahrenheit, "Celsius")
-            @Html.RadioButtonFor(p => p.TempIsFahrenheit, "false", new { id = "celsius" })
+        @Html.LabelFor(p => p.TempIsFahrenheit, "Celsius", new { id = "celsius" })
+            @Html.RadioButtonFor(p => p.TempIsFahrenheit, "false")
         <br />
         @Html.Hidden("parkCode", @Model.Park.ParkCode)
         <button class="btn">Change temperature</button>
