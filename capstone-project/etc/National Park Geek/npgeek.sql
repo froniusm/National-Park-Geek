@@ -109,7 +109,9 @@ INSERT INTO weather VALUES ('RMNP',4,33,47,'partly cloudy');
 INSERT INTO weather VALUES ('RMNP',5,30,43,'rain');
 
 
-INSERT INTO survey_result VALUES ('CVNP',fake@fake.com,OH,sedentary);
-INSERT INTO survey_result VALUES ('RMNP',alsofake@fake.com,MI,active);
-INSERT INTO survey_result VALUES ('CVNP', madeup@madeup.com,PA,extremelyactive);
-INSERT INTO survey_result VALUES ('CVNP', fabulous@fake.com,FL,inactive);
+INSERT INTO survey_result VALUES ('CVNP','fake@fake.com','OH','sedentary');
+INSERT INTO survey_result VALUES ('RMNP','alsofake@fake.com','MI','active');
+INSERT INTO survey_result VALUES ('CVNP', 'madeup@madeup.com','PA','extremelyactive');
+INSERT INTO survey_result VALUES ('CVNP', 'fabulous@fake.com','FL','inactive');
+
+SELECT COUNT(*) as votes, parkCode FROM survey_result GROUP BY parkCode ORDER BY votes DESC, parkCode;
